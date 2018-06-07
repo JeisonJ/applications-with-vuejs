@@ -1,0 +1,25 @@
+{
+  "name": "example-vue",
+  "version": "1.0.0",
+  "description": "\"VueJS Example\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeisonJ/applications-with-vuejs.git"
+  },
+  "keywords": [
+    "vuejs"
+  ],
+  "author": "Jeison Perez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JeisonJ/applications-with-vuejs/issues"
+  },
+  "homepage": "https://github.com/JeisonJ/applications-with-vuejs#readme",
+  "dependencies": {
+    "vue": "^2.5.16"
+  }
+}

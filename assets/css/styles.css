@@ -1,0 +1,20 @@
+
+.flex-wrap { flex-wrap: wrap; }
+
+.is-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-top: 0.6rem;
+}
