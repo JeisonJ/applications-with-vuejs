@@ -1,99 +1,48 @@
 
 // Component header
-Vue.component('game-header', {
+Vue.component('pokemon', {
   template: `
-    <section class="hero has-text-centered is-info">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Video Games</h1>
-        </div>
-      </div>
-    </section>
-  `
-})
-
-
-// Component add
-Vue.component('game-add', {
-  template: `
-    <div class="field">
-      <label for="" class="label">New game</label>
-      <div class="control">
-        <input v-model="titleGame" type="text" class="input" placeholder="Metal Gear Solid V">
-      </div>
-      <div class="control mt-1">
-        <button @click="emitNewGame" class="button">Añadir</button>
-      </div>
+    <div class="pokemon">
+      <div class="pokemon-head"></div>
+      <div class="pokemon-body"></div>
+      <div class="pokemon-feet"></div>
     </div>
-  `,
-  data: function () {
-    return {
-      titleGame: null
-    }
-  },
-  methods: {
-    emitNewGame: function () {
-      if (this.titleGame) {
-        this.$emit('new', { title: this.titleGame })
-        this.titleGame = null
-      }
-    }
-  }
-})
-
-
-Vue.component('game-list', {
-  props: ['games'],
-  template: `
-    <ul>
-      <game-item v-for="item in games" :game="item" :key="item.id"></game-item>
-    </ul>
-  `
-})
-
-
-Vue.component('game-item', {
-  props: ['game'],
-  template: `
-    <li class="mb-1">
-      <article class="message">
-        <div class="message-body" v-text="game.title"></div>
-      </article>
-    </li>
   `
 })
 
 
 const app = new Vue({
   el: '#app',
-  template: `
-    <div class="view">
-      <game-header></game-header>
-      <section class="section has-background-dark">
-        <div class="container">
-          <div class="columns has-mobile">
-            <div class="column">
-              <game-add @new="addGame" class="mt-2"></game-add>
-            </div>
-            <div class="column">
-              <game-list :games="games"></game-list>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  `,
   data: {
-    games: [
-      { title: 'Me: Andromeda' },
-      { title: 'Battelfield 4' },
-      { title: 'Fallow 3' },
-      { title: 'FarCry 3' },
+    player1: { pokemon: {}, winner: false },
+    player2: { pokemon: {}, winner: false },
+    pokemons:[
+      { id: 0, name: 'pikachu',    type: 'electro'},
+      { id: 1, name: 'bulvasur',   type: 'planta' },
+      { id: 2, name: 'squirtle',   type: 'agua'   },
+      { id: 3, name: 'charmander', type: 'fuego'  },
+    ],
+    results: [
+      [0, 2, 1, 0],
+      [1, 0, 2, 2],
+      [2, 1, 0, 1],
+      [0, 1, 2, 0],
     ]
   },
   methods: {
-    addGame: function (game) {
-      this.games.push(game)
+    fight: function () {
+      const result = this.results[this.player1.pokemon.id][this.player2.pokemon.id]
+      const selectWinner = [
+        () => { this.player1.winner = true;  this.player2.winner = true;  },  // Empate
+        () => { this.player1.winner = true;  this.player2.winner = false; }, // Gana jugador 1
+        () => { this.player1.winner = false; this.player2.winner = true;  },  // Gana jugador 2 
+      ]
+
+      selectWinner[result]();
+    },
+    resetWinner: function () {
+      this.player1.winner = false
+      this.player2.winner = false
     }
   }
 })
